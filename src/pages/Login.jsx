@@ -21,7 +21,7 @@ export default function Login() {
     if (localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
       navigate("/");
     }
-  }, []);
+  }, [navigate]);
 
   const handleChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
@@ -29,11 +29,8 @@ export default function Login() {
 
   const validateForm = () => {
     const { username, password } = values;
-    if (username === "") {
-      toast.error("Email and Password is required.", toastOptions);
-      return false;
-    } else if (password === "") {
-      toast.error("Email and Password is required.", toastOptions);
+    if (username === "" || password === "") {
+      toast.error("Username and Password are required.", toastOptions);
       return false;
     }
     return true;
@@ -49,13 +46,11 @@ export default function Login() {
       });
       if (data.status === false) {
         toast.error(data.msg, toastOptions);
-      }
-      if (data.status === true) {
+      } else if (data.status === true) {
         localStorage.setItem(
           process.env.REACT_APP_LOCALHOST_KEY,
           JSON.stringify(data.user)
         );
-
         navigate("/");
       }
     }
@@ -84,7 +79,7 @@ export default function Login() {
           />
           <button type="submit">Log In</button>
           <span>
-            Don't have an account ? <Link to="/register">Create One.</Link>
+            Don't have an account? <Link to="/register">Create One.</Link>
           </span>
         </form>
       </FormContainer>
@@ -99,9 +94,9 @@ const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 1rem;
   align-items: center;
   background-color: #131324;
+
   .brand {
     display: flex;
     align-items: center;
@@ -122,8 +117,21 @@ const FormContainer = styled.div`
     gap: 2rem;
     background-color: #00000076;
     border-radius: 2rem;
-    padding: 5rem;
+    padding: 3rem;
+    width: 90%;
+    max-width: 400px;
+
+    @media screen and (max-width: 768px) {
+      padding: 2rem;
+      gap: 1.5rem;
+    }
+
+    @media screen and (max-width: 480px) {
+      padding: 1.5rem;
+      gap: 1rem;
+    }
   }
+
   input {
     background-color: transparent;
     padding: 1rem;
@@ -132,11 +140,23 @@ const FormContainer = styled.div`
     color: white;
     width: 100%;
     font-size: 1rem;
+
+    @media screen and (max-width: 768px) {
+      padding: 0.8rem;
+      font-size: 0.9rem;
+    }
+
+    @media screen and (max-width: 480px) {
+      padding: 0.6rem;
+      font-size: 0.8rem;
+    }
+
     &:focus {
       border: 0.1rem solid #997af0;
       outline: none;
     }
   }
+
   button {
     background-color: #4e0eff;
     color: white;
@@ -147,13 +167,26 @@ const FormContainer = styled.div`
     border-radius: 0.4rem;
     font-size: 1rem;
     text-transform: uppercase;
+
     &:hover {
       background-color: #4e0eff;
     }
+
+    @media screen and (max-width: 768px) {
+      padding: 0.8rem 1.5rem;
+      font-size: 0.9rem;
+    }
+
+    @media screen and (max-width: 480px) {
+      padding: 0.6rem 1rem;
+      font-size: 0.8rem;
+    }
   }
+
   span {
     color: white;
     text-transform: uppercase;
+
     a {
       color: #4e0eff;
       text-decoration: none;

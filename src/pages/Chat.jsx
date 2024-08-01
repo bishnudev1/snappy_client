@@ -14,6 +14,7 @@ export default function Chat() {
   const [contacts, setContacts] = useState([]);
   const [currentChat, setCurrentChat] = useState(undefined);
   const [currentUser, setCurrentUser] = useState(undefined);
+  
   useEffect(async () => {
     if (!localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
       navigate("/login");
@@ -24,7 +25,8 @@ export default function Chat() {
         )
       );
     }
-  }, []);
+  }, [navigate]);
+
   useEffect(() => {
     if (currentUser) {
       socket.current = io(host);
@@ -41,10 +43,12 @@ export default function Chat() {
         navigate("/setAvatar");
       }
     }
-  }, [currentUser]);
+  }, [currentUser, navigate]);
+
   const handleChatChange = (chat) => {
     setCurrentChat(chat);
   };
+
   return (
     <>
       <Container>
@@ -67,17 +71,24 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 1rem;
   align-items: center;
   background-color: #131324;
+  
   .container {
     height: 85vh;
     width: 85vw;
     background-color: #00000076;
     display: grid;
     grid-template-columns: 25% 75%;
-    @media screen and (min-width: 720px) and (max-width: 1080px) {
+    
+    @media screen and (max-width: 1080px) {
       grid-template-columns: 35% 65%;
+    }
+
+    @media screen and (max-width: 720px) {
+      grid-template-columns: 100%;
+      height: 90vh;
+      width: 95vw;
     }
   }
 `;

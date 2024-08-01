@@ -7,6 +7,7 @@ import Picker from "emoji-picker-react";
 export default function ChatInput({ handleSendMsg }) {
   const [msg, setMsg] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+
   const handleEmojiPickerhideShow = () => {
     setShowEmojiPicker(!showEmojiPicker);
   };
@@ -54,50 +55,61 @@ const Container = styled.div`
   grid-template-columns: 5% 95%;
   background-color: #080420;
   padding: 0 2rem;
-  @media screen and (min-width: 720px) and (max-width: 1080px) {
+
+  @media screen and (max-width: 720px) {
     padding: 0 1rem;
-    gap: 1rem;
+    grid-template-columns: 10% 90%;
   }
+
   .button-container {
     display: flex;
     align-items: center;
     color: white;
     gap: 1rem;
+
     .emoji {
       position: relative;
+
       svg {
         font-size: 1.5rem;
         color: #ffff00c8;
         cursor: pointer;
       }
+
       .emoji-picker-react {
         position: absolute;
         top: -350px;
         background-color: #080420;
         box-shadow: 0 5px 10px #9a86f3;
         border-color: #9a86f3;
+
         .emoji-scroll-wrapper::-webkit-scrollbar {
           background-color: #080420;
           width: 5px;
+
           &-thumb {
             background-color: #9a86f3;
           }
         }
+
         .emoji-categories {
           button {
             filter: contrast(0);
           }
         }
+
         .emoji-search {
           background-color: transparent;
           border-color: #9a86f3;
         }
+
         .emoji-group:before {
           background-color: #080420;
         }
       }
     }
   }
+
   .input-container {
     width: 100%;
     border-radius: 2rem;
@@ -105,6 +117,7 @@ const Container = styled.div`
     align-items: center;
     gap: 2rem;
     background-color: #ffffff34;
+
     input {
       width: 90%;
       height: 60%;
@@ -117,10 +130,17 @@ const Container = styled.div`
       &::selection {
         background-color: #9a86f3;
       }
+
       &:focus {
         outline: none;
       }
+
+      @media screen and (max-width: 720px) {
+        font-size: 1rem;
+        padding-left: 0.5rem;
+      }
     }
+
     button {
       padding: 0.3rem 2rem;
       border-radius: 2rem;
@@ -129,12 +149,15 @@ const Container = styled.div`
       align-items: center;
       background-color: #9a86f3;
       border: none;
-      @media screen and (min-width: 720px) and (max-width: 1080px) {
+
+      @media screen and (max-width: 720px) {
         padding: 0.3rem 1rem;
+
         svg {
           font-size: 1rem;
         }
       }
+
       svg {
         font-size: 2rem;
         color: white;
